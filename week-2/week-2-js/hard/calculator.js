@@ -34,10 +34,6 @@ class Calculator {
   }
 
   divide(num) {
-    // if(num === 0) {
-    //   console.error("0 not allowed")
-    //   return;
-    // }
     if (num === 0) {
       throw new Error("Invalid expression");
     }
