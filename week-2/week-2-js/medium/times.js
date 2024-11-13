@@ -9,5 +9,16 @@ There is no automated test for this one, this is more for you to understand time
 */
 
 function calculateTime(n) {
-    return 0.01;
+  const timeBeforeLoop = Date.now();
+  let sum = 0;
+  for (let index = 1; index <= n; index++) {
+    sum = sum + index;
+  }
+  const timeLapsedinMilli = Date.now() - timeBeforeLoop;
+
+  return Math.floor(timeLapsedinMilli / 1000);
 }
+
+console.log('Time for 1 to 100:', calculateTime(100));
+console.log('Time for 1 to 100000:', calculateTime(100000));
+console.log('Time for 1 to 1000000000:', calculateTime(1000000000));

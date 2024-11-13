@@ -7,6 +7,14 @@
 
 function countVowels(str) {
     // Your code here
+    let totalVowels = 0;
+
+    str.toLowerCase().split("").forEach(alphabet => {
+      if (['a', 'e', 'i', 'o', 'u'].includes(alphabet)) {
+        totalVowels++;
+      }
+    });
+    return totalVowels;
 }
 
 module.exports = countVowels;
