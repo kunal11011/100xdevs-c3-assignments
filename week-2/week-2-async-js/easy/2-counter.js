@@ -1,3 +1,5 @@
+// Counter without setInterval
+
 let count = 1;
 function counter() {
   console.log("Count is", count);

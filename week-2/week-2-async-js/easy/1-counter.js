@@ -1,3 +1,5 @@
+// Create a counter in JavaScript
+
 let count = 1;
 console.log("Count is ", count);
 setInterval(() => {
