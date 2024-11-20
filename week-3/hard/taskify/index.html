@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DragODrop Taskify</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="script.js"></script>
+</head>
+
+<body>
+    <main>
+        <header class="heading">DragODrop Taskify</header>
+        <section class="task-container">
+            <div id="todo" class="category">
+                <div class="category-title">TODO</div>
+                <button onclick="addTask('todo')" class="add-btn">add task +</button>
+            </div>
+            <div id="inprg" class="category">
+                <div class="category-title">IN PROGRESS</div>
+                <button onclick="addTask('inprg')" class="add-btn">add task +</button>
+            </div>
+            <div id="undrw" class="category">
+                <div class="category-title">UNDER REVIEW</div>
+                <button onclick="addTask('undrw')" class="add-btn">add task +</button>
+            </div>
+            <div id="finish" class="category">
+                <div class="category-title">FINISHED</div>
+                <button onclick="addTask('finish')" class="add-btn">add task +</button>
+            </div>
+        </section>
+    </main>
+</body>
+
+</html>
