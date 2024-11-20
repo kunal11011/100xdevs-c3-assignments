@@ -13,87 +13,22 @@
     <main>
         <header class="heading">DragODrop Taskify</header>
         <section class="task-container">
-            <!-- <div> -->
-            <div class="category">
+            <div id="todo" class="category">
                 <div class="category-title">TODO</div>
-                <div class="task">
-                    <div class="task-title">
-                        <div>task name</div>
-                        <span class="delete-btn">&times;</span>
-                    </div>
-                    <div class="task-description">task description</div>
-                </div>
-                <div class="task">
-                    <div class="task-title">
-                        <div>task name</div>
-                        <span class="delete-btn">&times;</span>
-                    </div>
-                    <div class="task-description">task description</div>
-                </div>
-                <div class="task">
-                    <div class="task-title">
-                        <div>task name</div>
-                        <span class="delete-btn">&times;</span>
-                    </div>
-                    <div class="task-description">task description</div>
-                </div>
-                <div class="task">
-                    <div class="task-title">
-                        <div>task name</div>
-                        <span class="delete-btn">&times;</span>
-                    </div>
-                    <div class="task-description">task description</div>
-                </div>
-                <button class="add-btn">add task +</button>
+                <button onclick="addTask('todo')" class="add-btn">add task +</button>
             </div>
-            <div class="category">
+            <div id="inprg" class="category">
                 <div class="category-title">IN PROGRESS</div>
-                <div class="task">
-                    <div class="task-title">
-                        <div>task name</div>
-                        <span class="delete-btn">&times;</span>
-                    </div>
-                    <div class="task-description">task description</div>
-                </div>
-                <div class="task">
-                    <div class="task-title">
-                        <div>task name</div>
-                        <span class="delete-btn">&times;</span>
-                    </div>
-                    <div class="task-description">task description</div>
-                </div>
-                <button class="add-btn">add task +</button>
+                <button onclick="addTask('inprg')" class="add-btn">add task +</button>
             </div>
-            <div class="category">
-                <div class="category-title">UNDER REVIEW</div>  
-                <div class="task">
-                    <div class="task-title">
-                        <div>task name</div>
-                        <span class="delete-btn">&times;</span>
-                    </div>
-                    <div class="task-description">task description</div>
-                </div>
-                <button class="add-btn">add task +</button>
+            <div id="undrw" class="category">
+                <div class="category-title">UNDER REVIEW</div>
+                <button onclick="addTask('undrw')" class="add-btn">add task +</button>
             </div>
-            <div class="category">
+            <div id="finish" class="category">
                 <div class="category-title">FINISHED</div>
-                <div class="task">
-                    <div class="task-title">
-                        <div>task name</div>
-                        <span class="delete-btn">&times;</span>
-                    </div>
-                    <div class="task-description">task description</div>
-                </div>
-                <div class="task">
-                    <div class="task-title">
-                        <div>task name</div>
-                        <span class="delete-btn">&times;</span>
-                    </div>
-                    <div class="task-description">task description</div>
-                </div>
-                <button class="add-btn">add task +</button>
+                <button onclick="addTask('finish')" class="add-btn">add task +</button>
             </div>
-            <!-- </div> -->
         </section>
     </main>
 </body>
