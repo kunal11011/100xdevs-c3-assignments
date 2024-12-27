@@ -8,7 +8,7 @@ const jwt = require("jsonwebtoken");
 const SECRET_TOKEN = process.env.SECRET_TOKEN;
 
 // User Routes
-router.post("/signup", async (req, res) => {
+router.post("/signup", async (req, res, next) => {
   // Implement user signup logic
   try {
     const request = req.body;
@@ -33,17 +33,15 @@ router.post("/signup", async (req, res) => {
       message: `${newUser.name} created successfully with email ${newUser.email}`,
     });
   } catch (error) {
-    res.status(400).json({
-      message: error.message,
-    });
+    next(error);
   }
 });
 
-router.post("/login", async (req, res) => {
+router.post("/login", async (req, res, next) => {
   // Implement user login logic
   try {
     const userCredentials = req.body;
-    const dbUser = await User.findOne({ email: request.email });
+    const dbUser = await User.findOne({ email: userCredentials.email });
     if (!dbUser) {
       throw new Error("Invalid credentials.");
     }
@@ -55,24 +53,32 @@ router.post("/login", async (req, res) => {
       throw new Error("Invalid credentials.");
     }
 
-    const token = jwt.sign({ email: dbUser.email }, SECRET_TOKEN, { expiresIn: 15 });
+    const token = jwt.sign({ email: dbUser.email }, SECRET_TOKEN, {
+      expiresIn: 3600,
+    });
 
     res.json({
-        token : token
-    })
-  } catch (error) {
-    res.status(400).json({
-      message: error.message,
+      token: token,
     });
+  } catch (error) {
+    next(error);
   }
 });
 
-router.get("/todos", userMiddleware, (req, res) => {
+router.get("/todos", userMiddleware, async (req, res) => {
   // Implement logic for getting todos for a user
+  const userTodos = await Todo.find({ userId: req.id });
+  res.json(userTodos);
 });
 
 router.post("/logout", userMiddleware, (req, res) => {
   // Implement logout logic
+
+  // jwt.sign({}, SECRET_TOKEN, { expiresIn: "10" });
+  // // res.redirect("/login");
+  // res.status(201).json({
+  //   message: "user Logged out successfully",
+  // });
 });
 
 module.exports = router;
