@@ -1,11 +1,15 @@
 const { Router } = require("express");
-const router = Router();
-const userMiddleware = require("../middleware/user");
-const { User, Todo } = require("../database/index");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 
+const userMiddleware = require("../middleware/user");
+const { User, Todo } = require("../database/index");
+const redisClient = require("../database/redisDB");
+
+const router = Router();
+
 const SECRET_TOKEN = process.env.SECRET_TOKEN;
+const EXP_TIME = process.env.EXP_TIME;
 
 // User Routes
 router.post("/signup", async (req, res, next) => {
@@ -54,7 +58,7 @@ router.post("/login", async (req, res, next) => {
     }
 
     const token = jwt.sign({ email: dbUser.email }, SECRET_TOKEN, {
-      expiresIn: 3600,
+      expiresIn: `${EXP_TIME}s`,
     });
 
     res.json({
@@ -71,14 +75,16 @@ router.get("/todos", userMiddleware, async (req, res) => {
   res.json(userTodos);
 });
 
-router.post("/logout", userMiddleware, (req, res) => {
+router.post("/logout", userMiddleware, async (req, res, next) => {
   // Implement logout logic
-
-  // jwt.sign({}, SECRET_TOKEN, { expiresIn: "10" });
-  // // res.redirect("/login");
-  // res.status(201).json({
-  //   message: "user Logged out successfully",
-  // });
+  try {
+    const jwtToken = req.headers.authorization;
+    const token = jwtToken.split(" ")[1];
+    await redisClient.set(token, "blacklisted", "EX", EXP_TIME);
+    res.status(200).json({ message: "Successfully Logged Out." });
+  } catch (error) {
+    next(error);
+  }
 });
 
 module.exports = router;

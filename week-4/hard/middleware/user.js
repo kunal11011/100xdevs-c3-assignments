@@ -4,6 +4,7 @@ dotenv.config();
 
 const SECRET_KEY = process.env.SECRET_TOKEN;
 const { User, Todo } = require("../database/index");
+const redisClient = require("../database/redisDB");
 
 async function userMiddleware(req, res, next) {
   // Implement user auth logic
@@ -14,8 +15,12 @@ async function userMiddleware(req, res, next) {
     }
     const token = jwtToken.split(" ")[1];
 
-    const currentUser = jwt.verify(token, SECRET_KEY);
+    const isBlacklisted = await redisClient.get(token);
+    if (isBlacklisted) {
+      throw new Error("Unauthorized User");
+    }
 
+    const currentUser = jwt.verify(token, SECRET_KEY);
     const user = await User.find({ email: currentUser.email });
     if (currentUser && user.length) {
       req.email = user[0].email;

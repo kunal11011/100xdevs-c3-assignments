@@ -17,6 +17,7 @@ app.use("/todo", todoRoutes);
 
 app.use((err, req, res, next) => {
   // logic
+  // console.trace(err);
   const errStatus = err.statusCode || 500;
   const errMsg = err.message || "Something went wrong.";
   res.status(errStatus).json({
